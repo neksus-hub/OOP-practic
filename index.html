@@ -4,9 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
+    <link rel="icon" href="data:;base64,=" />
+    <title>Web-разработчики</title>
   </head>
   <body>
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
+    <div class="form-wrapper">
+      <form action="#" class="form">
+        <h1 class="form-title">Web-разработчики</h1>
+        <div class="form-options">
+          <div class="form-inputs">
+            <input
+              type="text"
+              class="form-input"
+              id="name"
+              placeholder="Ваше Имя"
+            />
+            <input
+              type="text"
+              class="form-input"
+              id="subname"
+              placeholder="Ваша Фамилия"
+            />
+            <input
+              type="text"
+              class="form-input"
+              id="age"
+              placeholder="Ваш возраст"
+            />
+            <input
+              type="text"
+              class="form-input"
+              id="age"
+              placeholder="Ваш возраст"
+            />
+          </div>
+
+          <div class="form-selects">
+            <div class="select-group">
+              <label for="area" class="select-label">Область разработки:</label>
+              <select name="area" id="area" class="select">
+                <option value="front">FrontEnd</option>
+                <option value="back">BackEnd</option>
+              </select>
+            </div>
+            <div class="add-options" id="add-options">
+              <div class="select-group">
+                <label for="lvl" class="select-label">Ваш уровень:</label>
+                <select name="lvl" id="lvl" class="select">
+                  <option value="jun">Junior</option>
+                  <option value="middle">Middle</option>
+                  <option value="senior">Senior</option>
+                </select>
+              </div>
+              <div class="select-group">
+                <label for="exp" class="select-label">Ваш опыт работы:</label>
+                <select name="exp" id="exp" class="select">
+                  <option value="exp-first">1 год</option>
+                  <option value="exp-second">3 года</option>
+                  <option value="exp-third">6 лет</option>
+                </select>
+              </div>
+              <div class="select-group">
+                <label for="floor" class="select-label">Ваш пол:</label>
+                <select name="floor" id="floor" class="select">
+                  <option value="male">муж</option>
+                  <option value="female">жен</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="save-btn" id="save" type="submit">Сохранить</button>
+      </form>
+    </div>
   </body>
 </html>
