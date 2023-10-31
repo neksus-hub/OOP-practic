@@ -54,7 +54,7 @@ body {
 }
 
 .add-options {
-  display: none;
+  display: block;
 }
 
 .table {
