@@ -47,17 +47,60 @@ class JunFrontEndDev extends FrontEndDev {
     lvl,
     skills = [],
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
     newSkills.forEach((item) => {
       this.skills.push(item);
     });
+  }
+  addNewRow() {
+    const table = document.querySelector(".table");
+
+    const newRow = document.createElement("tr");
+    newRow.classList.add("row");
+    table.appendChild(newRow);
+
+    for (let i = 0; i <= 9; i++) {
+      const newTd = document.createElement("td");
+      newTd.classList.add("column");
+      newTd.id = i;
+      newRow.appendChild(newTd);
+      if (newTd.id === "0") {
+        this.name = nameInput.value;
+        newTd.innerHTML = `<p>${this.name}</p>`;
+      } else if (newTd.id === "1") {
+        this.subname = subnameInput.value;
+        newTd.innerHTML = `<p>${this.subname}</p>`;
+      } else if (newTd.id === "2") {
+        this.age = ageInput.value;
+        newTd.innerHTML = `<p>${this.age}</p>`;
+      } else if (newTd.id === "3") {
+        this.organization = orgInput.value;
+        newTd.innerHTML = `<p>${this.organization}</p>`;
+      } else if (newTd.id === "4") {
+        newTd.innerHTML = `<p>${this.skills}</p>`;
+      } else if (newTd.id === "5" && selectFloor.value === "male") {
+        this.floor = "мужской";
+        newTd.innerHTML = `<p>${this.floor}</p>`;
+      } else if (newTd.id === "5" && selectFloor.value === "female") {
+        this.floor = "женский";
+        newTd.innerHTML = `<p>${this.floor}</p>`;
+      } else if (newTd.id === "6" && child.checked) {
+        this.child = "есть";
+        newTd.innerHTML = `<p>${this.child}</p>`;
+      } else if (newTd.id === "6" && !child.checked) {
+        this.child = "нет";
+        newTd.innerHTML = `<p>${this.child}</p>`;
+      }
+    }
   }
 }
 
@@ -71,11 +114,13 @@ class MidFrontEndDev extends FrontEndDev {
     lvl,
     skills,
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
@@ -95,11 +140,13 @@ class SenFrontEndDev extends FrontEndDev {
     lvl,
     skills,
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
@@ -119,11 +166,13 @@ class JunBackEndDev extends BackEndDev {
     lvl,
     skills,
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
@@ -143,11 +192,13 @@ class MidBackEndDev extends BackEndDev {
     lvl,
     skills,
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
@@ -168,11 +219,13 @@ class SenBackEndDev extends BackEndDev {
     lvl,
     skills = [],
     salary,
-    experience
+    experience,
+    child
   ) {
     super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
+    this.child = child;
   }
   pushSkills() {
     let newSkills = skillsInput.value.split(",");
@@ -217,6 +270,7 @@ const addNewElem = function () {
   if (selectArea.value === "front" && selectLvl.value === "jun") {
     const newElem = new JunFrontEndDev();
     newElem.pushSkills();
+    newElem.addNewRow();
     console.log(newElem);
   } else if (selectArea.value === "front" && selectLvl.value === "middle") {
     const newElem = new MidFrontEndDev();
