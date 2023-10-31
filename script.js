@@ -9,6 +9,7 @@ const orgInput = document.getElementById("org");
 const skillsInput = document.getElementById("skills");
 const selectExp = document.getElementById("exp");
 const selectFloor = document.getElementById("floor");
+const salaryInput = document.getElementById("salary");
 const child = document.getElementById("children");
 
 class WebProgrammer {
@@ -61,14 +62,15 @@ class JunFrontEndDev extends FrontEndDev {
       this.skills.push(item);
     });
   }
+
   addNewRow() {
     const table = document.querySelector(".table");
 
     const newRow = document.createElement("tr");
-    newRow.classList.add("row");
+    newRow.classList.add("addrow");
     table.appendChild(newRow);
 
-    for (let i = 0; i <= 9; i++) {
+    for (let i = 0; i <= 10; i++) {
       const newTd = document.createElement("td");
       newTd.classList.add("column");
       newTd.id = i;
@@ -99,7 +101,39 @@ class JunFrontEndDev extends FrontEndDev {
       } else if (newTd.id === "6" && !child.checked) {
         this.child = "нет";
         newTd.innerHTML = `<p>${this.child}</p>`;
+      } else if (newTd.id === "7") {
+        this.lvl = selectLvl.value;
+        newTd.innerHTML = `<p>${this.lvl}</p>`;
+      } else if (newTd.id === "8") {
+        this.experience = selectExp.value;
+        newTd.innerHTML = `<p>${this.experience}</p>`;
+      } else if (newTd.id === "9") {
+        this.salary = salaryInput.value;
+        newTd.innerHTML = `<p>${this.salary}</p>`;
+      } else if (newTd.id === "10") {
+        const delBtn = document.createElement("button");
+        delBtn.classList.add("delete-button");
+        delBtn.textContent = "Удалить";
+        newTd.appendChild(delBtn);
       }
+    }
+    this.deleteRow();
+  }
+
+  deleteRow() {
+    const alldelBtn = document.querySelectorAll(".delete-button");
+    const alladdrow = document.querySelectorAll(".addrow");
+
+    console.log(alldelBtn);
+
+    for (let i = 0; i <= alldelBtn.length - 1; i++) {
+      alldelBtn[i].addEventListener("click", () => {
+        for (let j = 0; j <= alladdrow.length - 1; j++) {
+          if (i === j) {
+            alladdrow[j].remove();
+          }
+        }
+      });
     }
   }
 }
