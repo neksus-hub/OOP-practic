@@ -22,15 +22,15 @@ class WebProgrammer {
 }
 
 class FrontEndDev extends WebProgrammer {
-  constructor(
-    name,
-    surname,
-    age,
-    organization,
-    floor,
-    lvl,
-    skills = ["верстка", "js"]
-  ) {
+  constructor(name, surname, age, organization, floor, lvl, skills = []) {
+    super(name, surname, age, organization, floor);
+    this.skills = skills;
+    this.lvl = lvl;
+  }
+}
+
+class BackEndDev extends WebProgrammer {
+  constructor(name, surname, age, organization, floor, lvl, skills = []) {
     super(name, surname, age, organization, floor);
     this.skills = skills;
     this.lvl = lvl;
@@ -49,7 +49,7 @@ class JunFrontEndDev extends FrontEndDev {
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -69,11 +69,11 @@ class MidFrontEndDev extends FrontEndDev {
     organization,
     floor,
     lvl,
-    skills = [],
+    skills,
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -93,11 +93,11 @@ class SenFrontEndDev extends FrontEndDev {
     organization,
     floor,
     lvl,
-    skills = [],
+    skills,
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -109,14 +109,6 @@ class SenFrontEndDev extends FrontEndDev {
   }
 }
 
-class BackEndDev extends WebProgrammer {
-  constructor(name, surname, age, organization, floor, lvl, skills = []) {
-    super(name, surname, age, organization, floor);
-    lvl = this.skills;
-    skills = this.skills;
-  }
-}
-
 class JunBackEndDev extends BackEndDev {
   constructor(
     name,
@@ -125,11 +117,11 @@ class JunBackEndDev extends BackEndDev {
     organization,
     floor,
     lvl,
-    skills = [],
+    skills,
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -149,11 +141,11 @@ class MidBackEndDev extends BackEndDev {
     organization,
     floor,
     lvl,
-    skills = [],
+    skills,
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -178,7 +170,7 @@ class SenBackEndDev extends BackEndDev {
     salary,
     experience
   ) {
-    super(name, surname, age, organization, floor, lvl, (skills = []));
+    super(name, surname, age, organization, floor, lvl, skills);
     this.salary = salary;
     this.experience = experience;
   }
@@ -232,6 +224,18 @@ const addNewElem = function () {
     console.log(newElem);
   } else if (selectArea.value === "front" && selectLvl.value === "senior") {
     const newElem = new SenFrontEndDev();
+    newElem.pushSkills();
+    console.log(newElem);
+  } else if (selectArea.value === "back" && selectLvl.value === "jun") {
+    const newElem = new JunBackEndDev();
+    newElem.pushSkills();
+    console.log(newElem);
+  } else if (selectArea.value === "back" && selectLvl.value === "middle") {
+    const newElem = new MidBackEndDev();
+    newElem.pushSkills();
+    console.log(newElem);
+  } else if (selectArea.value === "back" && selectLvl.value === "senior") {
+    const newElem = new SenBackEndDev();
     newElem.pushSkills();
     console.log(newElem);
   } else {
