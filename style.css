@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Roboto";
 }
 
 .form-wrapper {
@@ -9,6 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .form-inputs {
@@ -44,9 +46,41 @@ body {
 }
 
 .select-label {
-  width: 150px;
+  width: 160px;
 }
 
 .add-options {
   display: none;
+}
+
+.table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.table-block {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column {
+  width: 120px;
+  text-align: center;
+  margin: 0;
+}
+
+.column:not(:last-child) {
+  border-right: 1px solid black;
+  padding: 0 10px 0 10px;
+}
+.table-title {
+  font-size: 16px;
+  margin: 10px 0 10px 0;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
 }

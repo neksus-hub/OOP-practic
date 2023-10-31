@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
     <link rel="icon" href="data:;base64,=" />
     <title>Web-разработчики</title>
@@ -35,9 +41,19 @@
             <input
               type="text"
               class="form-input"
-              id="age"
-              placeholder="Ваш возраст"
+              id="org"
+              placeholder="Организация"
             />
+            <input
+              type="text"
+              class="form-input"
+              id="skills"
+              placeholder="Навыки"
+            />
+            <div class="input-group">
+              <label class="input-label" for="children">Наличие детей</label>
+              <input type="checkbox" class="form-input" id="children" />
+            </div>
           </div>
 
           <div class="form-selects">
@@ -77,6 +93,39 @@
         </div>
         <button class="save-btn" id="save" type="submit">Сохранить</button>
       </form>
+    </div>
+    <div class="table-block">
+      <table class="table">
+        <tr class="row">
+          <td class="column">
+            <h3 class="table-title">Имя</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Фамилия</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Возраст</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Организация</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Пол</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Дети</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Уровень</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Опыт работы</h3>
+          </td>
+          <td class="column">
+            <h3 class="table-title">Зарплата</h3>
+          </td>
+        </tr>
+      </table>
     </div>
   </body>
 </html>
