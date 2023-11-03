@@ -55,28 +55,30 @@ class FrontEndDev extends WebProgrammer {
 
   addNewRow() {
     newTable.innerHTML = "";
-    const tr = document.createElement("tr");
-    tr.classList.add("new-row");
-    tr.innerHTML =
-      `<td class="column">${localStorage.getItem("name")}</td>` +
-      `<td class="column">${localStorage.getItem("surname")}</td>` +
-      `<td class="column">${localStorage.getItem("age")}</td>` +
-      `<td class="column">${localStorage.getItem("organizaton")}</td>` +
-      `<td class="column">${localStorage.getItem("skills")}</td>` +
-      `<td class="column">${localStorage.getItem("floor")}</td>` +
-      `<td class="column">${localStorage.getItem("child")}</td>` +
-      `<td class="column">${localStorage.getItem("lvl")}</td>` +
-      `<td class="column">${localStorage.getItem("experience")}</td>` +
-      `<td class="column">${localStorage.getItem("salary")}</td>` +
-      `<td class="column"><button class="delete-button">Удалить</button></td>`;
-    newTable.append(tr);
+    let programmer = JSON.parse(localStorage.getItem("programmer"));
+    programmer.forEach((item) => {
+      const tr = document.createElement("tr");
+      tr.classList.add("new-row");
+      tr.innerHTML =
+        `<td class="column">${item.name}</td>` +
+        `<td class="column">${item.surname}</td>` +
+        `<td class="column">${item.age}</td>` +
+        `<td class="column">${item.organization}</td>` +
+        `<td class="column">${item.skills}</td>` +
+        `<td class="column">${item.floor}</td>` +
+        `<td class="column">${item.child}</td>` +
+        `<td class="column">${item.lvl}</td>` +
+        `<td class="column">${item.experience}</td>` +
+        `<td class="column">${item.salary}</td>` +
+        `<td class="column"><button class="delete-button">Удалить</button></td>`;
+      newTable.append(tr);
+    });
   }
 
   deleteRow() {
     const alldelBtn = document.querySelectorAll(".delete-button");
     const alladdrow = document.querySelectorAll(".new-row");
-
-    console.log(alldelBtn);
+    let programmers = JSON.parse(localStorage.getItem("programmer"));
 
     for (let i = 0; i <= alldelBtn.length - 1; i++) {
       alldelBtn[i].addEventListener("click", () => {
@@ -144,18 +146,7 @@ class FrontEndDev extends WebProgrammer {
   }
 
   addInLocalStorage() {
-    objectData.forEach((item) => {
-      localStorage.setItem("name", item.name);
-      localStorage.setItem("surname", item.surname);
-      localStorage.setItem("age", item.age);
-      localStorage.setItem("organization", item.organization);
-      localStorage.setItem("floor", item.floor);
-      localStorage.setItem("lvl", item.lvl);
-      localStorage.setItem("skills", item.skills);
-      localStorage.setItem("salary", item.salary);
-      localStorage.setItem("experience", item.experience);
-      localStorage.setItem("child", item.child);
-    });
+    localStorage.setItem("programmer", JSON.stringify(objectData));
   }
 
   clearInput() {
@@ -200,8 +191,8 @@ class BackEndDev extends WebProgrammer {
 
   addNewRow() {
     newTable.innerHTML = "";
-    objectData.forEach((item) => {
-      console.log(item);
+    let programmer = JSON.parse(localStorage.getItem("programmer"));
+    programmer.forEach((item) => {
       const tr = document.createElement("tr");
       tr.classList.add("new-row");
       tr.innerHTML =
@@ -231,6 +222,7 @@ class BackEndDev extends WebProgrammer {
         for (let j = 0; j <= alladdrow.length - 1; j++) {
           if (i === j) {
             alladdrow[j].remove();
+            localStorage.clear();
           }
         }
       });
@@ -292,18 +284,7 @@ class BackEndDev extends WebProgrammer {
   }
 
   addInLocalStorage() {
-    objectData.forEach((item) => {
-      localStorage.setItem("name", item.name);
-      localStorage.setItem("surname", item.surname);
-      localStorage.setItem("age", item.age);
-      localStorage.setItem("organization", item.organization);
-      localStorage.setItem("floor", item.floor);
-      localStorage.setItem("lvl", item.lvl);
-      localStorage.setItem("skills", item.skills);
-      localStorage.setItem("salary", item.salary);
-      localStorage.setItem("experience", item.experience);
-      localStorage.setItem("child", item.child);
-    });
+    localStorage.setItem("programmer", JSON.stringify(objectData));
   }
 
   clearInput() {
@@ -349,6 +330,30 @@ const ifEmpty = function () {
   });
 };
 
+const render = function () {
+  if (localStorage.getItem("programmer")) {
+    newTable.innerHTML = "";
+    let programmer = JSON.parse(localStorage.getItem("programmer"));
+    programmer.forEach((item) => {
+      const tr = document.createElement("tr");
+      tr.classList.add("new-row");
+      tr.innerHTML =
+        `<td class="column">${item.name}</td>` +
+        `<td class="column">${item.surname}</td>` +
+        `<td class="column">${item.age}</td>` +
+        `<td class="column">${item.organization}</td>` +
+        `<td class="column">${item.skills}</td>` +
+        `<td class="column">${item.floor}</td>` +
+        `<td class="column">${item.child}</td>` +
+        `<td class="column">${item.lvl}</td>` +
+        `<td class="column">${item.experience}</td>` +
+        `<td class="column">${item.salary}</td>` +
+        `<td class="column"><button class="delete-button">Удалить</button></td>`;
+      newTable.append(tr);
+    });
+  }
+};
+
 const addNewElem = function () {
   if (selectArea.value === "front") {
     const frontElem = new FrontEndDev();
@@ -364,11 +369,12 @@ const addNewElem = function () {
     backElem.pushSkills();
     backElem.getValue();
     backElem.pushObjectData();
-    frontElem.addInLocalStorage();
+    backElem.addInLocalStorage();
     backElem.addNewRow();
     backElem.deleteRow();
     // backElem.clearInput();
   }
 };
 
+render();
 ifEmpty();
