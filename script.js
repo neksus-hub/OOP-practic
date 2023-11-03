@@ -11,6 +11,7 @@ const selectExp = document.getElementById("exp");
 const selectFloor = document.getElementById("floor");
 const salaryInput = document.getElementById("salary");
 const child = document.getElementById("children");
+const newTable = document.getElementById("new-table");
 
 const objectData = [];
 
@@ -53,66 +54,27 @@ class FrontEndDev extends WebProgrammer {
   }
 
   addNewRow() {
-    const table = document.querySelector(".table");
-
-    const newRow = document.createElement("tr");
-    newRow.classList.add("addrow");
-    table.appendChild(newRow);
-
-    for (let i = 0; i <= 10; i++) {
-      const newTd = document.createElement("td");
-      newTd.classList.add("column");
-      newTd.id = i;
-      newRow.appendChild(newTd);
-      if (newTd.id === "0") {
-        this.name = nameInput.value;
-        newTd.innerHTML = `<p>${this.name}</p>`;
-      } else if (newTd.id === "1") {
-        this.surname = subnameInput.value;
-        newTd.innerHTML = `<p>${this.surname}</p>`;
-      } else if (newTd.id === "2") {
-        this.age = ageInput.value;
-        newTd.innerHTML = `<p>${this.age}</p>`;
-      } else if (newTd.id === "3") {
-        this.organization = orgInput.value;
-        newTd.innerHTML = `<p>${this.organization}</p>`;
-      } else if (newTd.id === "4") {
-        newTd.innerHTML = `<p>${this.skills}</p>`;
-      } else if (newTd.id === "5" && selectFloor.value === "male") {
-        this.floor = "мужской";
-        newTd.innerHTML = `<p>${this.floor}</p>`;
-      } else if (newTd.id === "5" && selectFloor.value === "female") {
-        this.floor = "женский";
-        newTd.innerHTML = `<p>${this.floor}</p>`;
-      } else if (newTd.id === "6" && child.checked) {
-        this.child = "есть";
-        newTd.innerHTML = `<p>${this.child}</p>`;
-      } else if (newTd.id === "6" && !child.checked) {
-        this.child = "нет";
-        newTd.innerHTML = `<p>${this.child}</p>`;
-      } else if (newTd.id === "7") {
-        this.lvl = selectLvl.value;
-        newTd.innerHTML = `<p>${this.lvl}</p>`;
-      } else if (newTd.id === "8") {
-        this.experience = selectExp.value;
-        newTd.innerHTML = `<p>${this.experience}</p>`;
-      } else if (newTd.id === "9") {
-        this.salary = salaryInput.value;
-        newTd.innerHTML = `<p>${this.salary}</p>`;
-      } else if (newTd.id === "10") {
-        const delBtn = document.createElement("button");
-        delBtn.classList.add("delete-button");
-        delBtn.textContent = "Удалить";
-        newTd.appendChild(delBtn);
-      }
-    }
-    this.deleteRow();
-    this.pushObjectData();
+    newTable.innerHTML = "";
+    const tr = document.createElement("tr");
+    tr.classList.add("new-row");
+    tr.innerHTML =
+      `<td class="column">${localStorage.getItem("name")}</td>` +
+      `<td class="column">${localStorage.getItem("surname")}</td>` +
+      `<td class="column">${localStorage.getItem("age")}</td>` +
+      `<td class="column">${localStorage.getItem("organizaton")}</td>` +
+      `<td class="column">${localStorage.getItem("skills")}</td>` +
+      `<td class="column">${localStorage.getItem("floor")}</td>` +
+      `<td class="column">${localStorage.getItem("child")}</td>` +
+      `<td class="column">${localStorage.getItem("lvl")}</td>` +
+      `<td class="column">${localStorage.getItem("experience")}</td>` +
+      `<td class="column">${localStorage.getItem("salary")}</td>` +
+      `<td class="column"><button class="delete-button">Удалить</button></td>`;
+    newTable.append(tr);
   }
 
   deleteRow() {
     const alldelBtn = document.querySelectorAll(".delete-button");
-    const alladdrow = document.querySelectorAll(".addrow");
+    const alladdrow = document.querySelectorAll(".new-row");
 
     console.log(alldelBtn);
 
@@ -124,6 +86,43 @@ class FrontEndDev extends WebProgrammer {
           }
         }
       });
+    }
+  }
+
+  getValue() {
+    this.name = nameInput.value;
+    this.surname = subnameInput.value;
+    this.age = ageInput.value;
+    this.organization = orgInput.value;
+
+    if (selectFloor.value === "male") {
+      this.floor = "мужской";
+    } else if (selectFloor.value === "female") {
+      this.floor = "женский";
+    }
+
+    if (selectLvl.value === "jun") {
+      this.lvl = "junior";
+    } else if (selectLvl.value === "middle") {
+      this.lvl = "middle";
+    } else if (selectLvl.value === "senior") {
+      this.lvl = "senior";
+    }
+
+    this.salary = salaryInput.value;
+
+    if (selectExp.value === "1 year") {
+      this.experience = "1 год";
+    } else if (selectExp.value === "3 years") {
+      this.experience = "3 года";
+    } else if (selectExp.value === "6 years ") {
+      this.experience = "6 лет";
+    }
+
+    if (child.checked) {
+      this.child = "есть";
+    } else {
+      this.child = "нет";
     }
   }
 
@@ -142,7 +141,32 @@ class FrontEndDev extends WebProgrammer {
     };
 
     objectData.push(NewObjectData);
-    console.log(objectData);
+  }
+
+  addInLocalStorage() {
+    objectData.forEach((item) => {
+      localStorage.setItem("name", item.name);
+      localStorage.setItem("surname", item.surname);
+      localStorage.setItem("age", item.age);
+      localStorage.setItem("organization", item.organization);
+      localStorage.setItem("floor", item.floor);
+      localStorage.setItem("lvl", item.lvl);
+      localStorage.setItem("skills", item.skills);
+      localStorage.setItem("salary", item.salary);
+      localStorage.setItem("experience", item.experience);
+      localStorage.setItem("child", item.child);
+    });
+  }
+
+  clearInput() {
+    saveBtn.value = "";
+    nameInput.value = "";
+    subnameInput.value = "";
+    ageInput.value = "";
+    orgInput.value = "";
+    skillsInput.value = "";
+    salaryInput.value = "";
+    child.value = "";
   }
 }
 
@@ -175,66 +199,30 @@ class BackEndDev extends WebProgrammer {
   }
 
   addNewRow() {
-    const table = document.querySelector(".table");
-
-    const newRow = document.createElement("tr");
-    newRow.classList.add("addrow");
-    table.appendChild(newRow);
-
-    for (let i = 0; i <= 10; i++) {
-      const newTd = document.createElement("td");
-      newTd.classList.add("column");
-      newTd.id = i;
-      newRow.appendChild(newTd);
-      if (newTd.id === "0") {
-        this.name = nameInput.value;
-        newTd.innerHTML = `<p>${this.name}</p>`;
-      } else if (newTd.id === "1") {
-        this.surname = subnameInput.value;
-        newTd.innerHTML = `<p>${this.surname}</p>`;
-      } else if (newTd.id === "2") {
-        this.age = ageInput.value;
-        newTd.innerHTML = `<p>${this.age}</p>`;
-      } else if (newTd.id === "3") {
-        this.organization = orgInput.value;
-        newTd.innerHTML = `<p>${this.organization}</p>`;
-      } else if (newTd.id === "4") {
-        newTd.innerHTML = `<p>${this.skills}</p>`;
-      } else if (newTd.id === "5" && selectFloor.value === "male") {
-        this.floor = "мужской";
-        newTd.innerHTML = `<p>${this.floor}</p>`;
-      } else if (newTd.id === "5" && selectFloor.value === "female") {
-        this.floor = "женский";
-        newTd.innerHTML = `<p>${this.floor}</p>`;
-      } else if (newTd.id === "6" && child.checked) {
-        this.child = "есть";
-        newTd.innerHTML = `<p>${this.child}</p>`;
-      } else if (newTd.id === "6" && !child.checked) {
-        this.child = "нет";
-        newTd.innerHTML = `<p>${this.child}</p>`;
-      } else if (newTd.id === "7") {
-        this.lvl = selectLvl.value;
-        newTd.innerHTML = `<p>${this.lvl}</p>`;
-      } else if (newTd.id === "8") {
-        this.experience = selectExp.value;
-        newTd.innerHTML = `<p>${this.experience}</p>`;
-      } else if (newTd.id === "9") {
-        this.salary = salaryInput.value;
-        newTd.innerHTML = `<p>${this.salary}</p>`;
-      } else if (newTd.id === "10") {
-        const delBtn = document.createElement("button");
-        delBtn.classList.add("delete-button");
-        delBtn.textContent = "Удалить";
-        newTd.appendChild(delBtn);
-      }
-    }
-    this.pushObjectData();
-    this.deleteRow();
+    newTable.innerHTML = "";
+    objectData.forEach((item) => {
+      console.log(item);
+      const tr = document.createElement("tr");
+      tr.classList.add("new-row");
+      tr.innerHTML =
+        `<td class="column">${item.name}</td>` +
+        `<td class="column">${item.surname}</td>` +
+        `<td class="column">${item.age}</td>` +
+        `<td class="column">${item.organization}</td>` +
+        `<td class="column">${item.skills}</td>` +
+        `<td class="column">${item.floor}</td>` +
+        `<td class="column">${item.child}</td>` +
+        `<td class="column">${item.lvl}</td>` +
+        `<td class="column">${item.experience}</td>` +
+        `<td class="column">${item.salary}</td>` +
+        `<td class="column"><button class="delete-button">Удалить</button></td>`;
+      newTable.append(tr);
+    });
   }
 
   deleteRow() {
     const alldelBtn = document.querySelectorAll(".delete-button");
-    const alladdrow = document.querySelectorAll(".addrow");
+    const alladdrow = document.querySelectorAll(".row");
 
     console.log(alldelBtn);
 
@@ -246,6 +234,43 @@ class BackEndDev extends WebProgrammer {
           }
         }
       });
+    }
+  }
+
+  getValue() {
+    this.name = nameInput.value;
+    this.surname = subnameInput.value;
+    this.age = ageInput.value;
+    this.organization = orgInput.value;
+
+    if (selectFloor.value === "male") {
+      this.floor = "мужской";
+    } else if (selectFloor.value === "female") {
+      this.floor = "женский";
+    }
+
+    if (selectLvl.value === "jun") {
+      this.lvl = "junior";
+    } else if (selectLvl.value === "middle") {
+      this.lvl = "middle";
+    } else if (selectLvl.value === "senior") {
+      this.lvl = "senior";
+    }
+
+    this.salary = salaryInput.value;
+
+    if (selectExp.value === "1 year") {
+      this.experience = "1 год";
+    } else if (selectExp.value === "3 years") {
+      this.experience = "3 года";
+    } else if (selectExp.value === "6 years ") {
+      this.experience = "6 лет";
+    }
+
+    if (child.checked) {
+      this.child = "есть";
+    } else {
+      this.child = "нет";
     }
   }
 
@@ -264,7 +289,32 @@ class BackEndDev extends WebProgrammer {
     };
 
     objectData.push(NewObjectData);
-    console.log(objectData);
+  }
+
+  addInLocalStorage() {
+    objectData.forEach((item) => {
+      localStorage.setItem("name", item.name);
+      localStorage.setItem("surname", item.surname);
+      localStorage.setItem("age", item.age);
+      localStorage.setItem("organization", item.organization);
+      localStorage.setItem("floor", item.floor);
+      localStorage.setItem("lvl", item.lvl);
+      localStorage.setItem("skills", item.skills);
+      localStorage.setItem("salary", item.salary);
+      localStorage.setItem("experience", item.experience);
+      localStorage.setItem("child", item.child);
+    });
+  }
+
+  clearInput() {
+    saveBtn.value = "";
+    nameInput.value = "";
+    subnameInput.value = "";
+    ageInput.value = "";
+    orgInput.value = "";
+    skillsInput.value = "";
+    salaryInput.value = "";
+    child.value = "";
   }
 }
 
@@ -303,13 +353,21 @@ const addNewElem = function () {
   if (selectArea.value === "front") {
     const frontElem = new FrontEndDev();
     frontElem.pushSkills();
+    frontElem.getValue();
+    frontElem.pushObjectData();
+    frontElem.addInLocalStorage();
     frontElem.addNewRow();
-    console.log(frontElem);
+    frontElem.deleteRow();
+    // frontElem.clearInput();
   } else if (selectArea.value === "back") {
     const backElem = new BackEndDev();
     backElem.pushSkills();
+    backElem.getValue();
+    backElem.pushObjectData();
+    frontElem.addInLocalStorage();
     backElem.addNewRow();
-    console.log(backElem);
+    backElem.deleteRow();
+    // backElem.clearInput();
   }
 };
 

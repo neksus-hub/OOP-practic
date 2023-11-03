@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto" sans-serif;
+  background: lightgrey;
 }
 
 .form-wrapper {
@@ -58,27 +59,31 @@ body {
 }
 
 .table {
-  border: 1px solid black;
+  border: 2px solid black;
   border-collapse: collapse;
 }
 
 .table-block {
   max-width: 100%;
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .column {
-  width: 120px;
+  width: 100px;
   text-align: center;
   margin: 0;
+  padding: 10px 10px 10px 10px;
 }
 
 .column:not(:last-child) {
   border-right: 1px solid black;
   padding: 0 10px 0 10px;
 }
+
 .table-title {
   font-size: 16px;
   margin: 10px 0 10px 0;
@@ -93,6 +98,10 @@ body {
   border-bottom: 1px solid #000;
 }
 
+.new-row {
+  border-bottom: 1px solid #000;
+}
+
 .delete-button {
   width: 80px;
   height: 40px;
@@ -102,4 +111,10 @@ body {
   cursor: pointer;
   color: #ffffff;
   font-style: normal;
+}
+
+.new-table {
+  border-collapse: collapse;
+  border-right: 1px solid #000000;
+  border-left: 1px solid #000000;
 }
