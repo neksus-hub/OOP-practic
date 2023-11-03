@@ -13,7 +13,7 @@ const salaryInput = document.getElementById("salary");
 const child = document.getElementById("children");
 const newTable = document.getElementById("new-table");
 
-const objectData = [];
+let objectData = [];
 
 class WebProgrammer {
   constructor(name, surname, age, organization, floor) {
@@ -78,13 +78,14 @@ class FrontEndDev extends WebProgrammer {
   deleteRow() {
     const alldelBtn = document.querySelectorAll(".delete-button");
     const alladdrow = document.querySelectorAll(".new-row");
-    let programmers = JSON.parse(localStorage.getItem("programmer"));
 
     for (let i = 0; i <= alldelBtn.length - 1; i++) {
       alldelBtn[i].addEventListener("click", () => {
         for (let j = 0; j <= alladdrow.length - 1; j++) {
           if (i === j) {
             alladdrow[j].remove();
+            localStorage.clear();
+            objectData = [];
           }
         }
       });
@@ -215,14 +216,13 @@ class BackEndDev extends WebProgrammer {
     const alldelBtn = document.querySelectorAll(".delete-button");
     const alladdrow = document.querySelectorAll(".row");
 
-    console.log(alldelBtn);
-
     for (let i = 0; i <= alldelBtn.length - 1; i++) {
       alldelBtn[i].addEventListener("click", () => {
         for (let j = 0; j <= alladdrow.length - 1; j++) {
           if (i === j) {
             alladdrow[j].remove();
             localStorage.clear();
+            objectData = [];
           }
         }
       });
@@ -363,7 +363,7 @@ const addNewElem = function () {
     frontElem.addInLocalStorage();
     frontElem.addNewRow();
     frontElem.deleteRow();
-    // frontElem.clearInput();
+    frontElem.clearInput();
   } else if (selectArea.value === "back") {
     const backElem = new BackEndDev();
     backElem.pushSkills();
@@ -372,9 +372,27 @@ const addNewElem = function () {
     backElem.addInLocalStorage();
     backElem.addNewRow();
     backElem.deleteRow();
-    // backElem.clearInput();
+    backElem.clearInput();
+  }
+};
+
+const deleteRow = function () {
+  const alldelBtn = document.querySelectorAll(".delete-button");
+  const alladdrow = document.querySelectorAll(".new-row");
+
+  for (let i = 0; i <= alldelBtn.length - 1; i++) {
+    alldelBtn[i].addEventListener("click", () => {
+      for (let j = 0; j <= alladdrow.length - 1; j++) {
+        if (i === j) {
+          alladdrow[j].remove();
+          localStorage.clear();
+          objectData = [];
+        }
+      }
+    });
   }
 };
 
 render();
 ifEmpty();
+deleteRow();
